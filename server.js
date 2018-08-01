@@ -9,17 +9,15 @@ app.prepare()
     .then(() => {
         const server = express()
 
-        server.get('/p/:id', (req, res) => {
-            console.log('routing')
-            const actualPage = '/about'
-            const queryParams = {title: req.params.id}
+         server.get('/medico/:name/:id', (req, res) => {
+            const actualPage = '/profiles'
+            const queryParams = {id: req.params.id}
             app.render(req, res, actualPage, queryParams)
         })
 
         server.get('*', (req, res) => {
             return handle(req, res)
         })
-
 
         server.listen(3001, (err) => {
             if (err) throw err

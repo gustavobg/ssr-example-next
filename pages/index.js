@@ -1,33 +1,36 @@
 import Layout from '../features/Layout'
 import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
-import css from '../static/styles/main.scss';
+import css from '../styles/style.scss';
+import api from "../services/api";
+import {slugify} from "../utils";
 
-const Index = (props) => (
-  <Layout>
-    <h1 className={css.example}>Batman TV Shows</h1>
-    <ul>
-      {props.shows.map(({show}) => (
-        <li key={show.id}>
-          <Link as={`/p/${show.id}`} href={`/post?id=${show.id}`}>
-            <a className={css.example}>{show.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </Layout>
-)
+const Index = ({
+    profiles
+}) => {
+    return (
+      <Layout>
+        <h1 className={css.example}>Perfis</h1>
+        <ul>
+          {profiles.map((p) => (
+            <li key={p.id}>
+              <Link as={`/medico/${slugify(p.name)}/${p.id}`} href={`/profiles?id=${p.id}`}>
+                <a>{p.treatment} {p.name}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Layout>
+    )
+}
 
 // ssr and client initial props
 Index.getInitialProps = async function() {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
-  const data = await res.json()
-
-  console.log(`Show data fetched. Count: ${data.length}`)
+  const res = await api.profiles.all();
+  const profiles = res.data;
 
   return {
-    shows: data
+    profiles
   }
-}
+};
 
 export default Index
