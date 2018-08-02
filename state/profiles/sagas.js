@@ -1,25 +1,30 @@
-import {delay} from 'redux-saga'
-import 'isomorphic-unfetch'
-import {call, put, take} from "redux-saga/es/effects";
-import {delay} from "redux-saga/index";
+import {put, takeLatest, call} from "redux-saga/effects";
+import api from "../../services/api";
+import {fetchFailure, fetchSuccess, fetchSuccessAll} from "./actions";
+import { PROFILES } from './types';
 
-import {all, call, put, take, takeLatest} from 'redux-saga/effects'
-import {actionTypes, failure, loadDataSuccess, tickClock} from '../actions'
-
-function * runClockSaga () {
-  yield take(actionTypes.START_CLOCK)
-  while (true) {
-    yield put(tickClock(false))
-    yield call(delay, 1000)
+export function* getById (id) {
+  try {
+    const res = yield call(api.profiles.byId, id);
+    const data = yield res.data;
+    console.log(`returned data: `, data);
+    yield put(fetchSuccess(data))
+  } catch (err) {
+    yield put(fetchFailure(err))
   }
 }
 
-function * loadDataSaga () {
+export function* getAll () {
   try {
-    const res = yield fetch('https://jsonplaceholder.typicode.com/users')
-    const data = yield res.json()
-    yield put(loadDataSuccess(data))
+    const res = yield call(api.profiles.all);
+    const data = yield res.data;
+    yield put(fetchSuccessAll(data))
   } catch (err) {
-    yield put(failure(err))
+    yield put(fetchFailure(err))
   }
+}
+
+export function* watchProfiles() {
+    yield takeLatest(PROFILES.ALL, getAll);
+    yield takeLatest(PROFILES.BY_ID, getById);
 }

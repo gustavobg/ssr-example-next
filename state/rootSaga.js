@@ -1,12 +1,14 @@
 // External
 import { all, fork } from 'redux-saga/effects';
 
-// Internal
-import { watchLogin, watchLogout } from '../state/login/sagas';
+import { watchIncrementAsync } from "./counter/sagas";
+import { watchProfiles } from "./profiles/sagas";
 
+// notice how we now only export the rootSaga
+// single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
-    fork(watchLogin),
-    fork(watchLogout),
-  ]);
+    fork(watchIncrementAsync),
+    fork(watchProfiles)
+  ])
 }

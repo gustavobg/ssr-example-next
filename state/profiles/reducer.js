@@ -1,9 +1,11 @@
-import { PROFILES } from './types';
+import {PROFILES} from './types';
 
 const initialState = {
-  profiles: [],
-  profile: {},
-
+    profiles: [],
+    profile: {},
+    isFetching: false,
+    showError: false,
+    message: ''
 };
 
 /**
@@ -12,15 +14,44 @@ const initialState = {
  * this is just for testing purpouses
  */
 const profiles = (state = initialState, action) => {
-  switch (action.type) {
-    case PROFILES.BY_ID:
-      return {
-        ...state,
-        authorized: true,
-      };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case PROFILES.ALL:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case PROFILES.BY_ID:
+            console.log('profile by id: reducer')
+            return {
+                ...state,
+                isFetching: true,
+            };
+        case PROFILES.FETCH_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                showError: true,
+                message: action.payload
+            };
+         case PROFILES.FETCH_SUCCESS:
+            return {
+                ...state,
+                profile: action.payload
+            };
+        case PROFILES.FETCH_SUCCESS_ALL:
+            return {
+                ...state,
+                profiles: action.payload
+            };
+        case PROFILES.RESET:
+            return {
+                ...state,
+                showError: false,
+                message: ''
+            };
+        default:
+            return state;
+    }
 };
 
 export default profiles;

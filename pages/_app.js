@@ -8,15 +8,15 @@ import createStore from '../state/configureStore'
 
 class MyApp extends App {
 
-  // static async getInitialProps ({ Component, ctx }) {
-  //   let pageProps = {};
-  //
-  //   if (Component.getInitialProps) {
-  //     pageProps = await Component.getInitialProps({ ctx })
-  //   }
-  //
-  //   return { pageProps }
-  // }
+  static async getInitialProps ({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
+
+    return { pageProps }
+  }
 
   componentDidCatch (error, errorInfo) {
     // This is needed to render errors correctly in development / production
