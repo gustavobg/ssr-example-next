@@ -1,6 +1,6 @@
 // External
 import MockAdapter from 'axios-mock-adapter';
-import mockData from '../../mocks/profile';
+import mockData from '../../__mocks__/profile';
 
 // Internal
 import api from './api';
