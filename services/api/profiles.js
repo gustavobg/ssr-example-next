@@ -11,8 +11,6 @@ mock.onGet('/profiles/1/').reply(200, mockData.profileInfo1);
 mock.onGet('/profiles/2/').reply(200, mockData.profileInfo2);
 mock.onGet('/profiles/').reply(200, mockData.profileList);
 
-export const byId = (id) =>
-  api.get(`/profiles/${id}/`);
+export const byId = (id) => api.get(`/profiles/${id}/`);
 
-export const all = () =>
-  api.get(`/profiles/`);
+export const all = () => api.get(`/profiles/`);

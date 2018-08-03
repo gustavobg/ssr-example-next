@@ -21,7 +21,6 @@ const profiles = (state = initialState, action) => {
                 isFetching: true
             };
         case PROFILES.BY_ID:
-            console.log('profile by id: reducer')
             return {
                 ...state,
                 isFetching: true,

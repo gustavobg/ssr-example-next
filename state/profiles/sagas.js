@@ -3,11 +3,10 @@ import api from "../../services/api";
 import {fetchFailure, fetchSuccess, fetchSuccessAll} from "./actions";
 import { PROFILES } from './types';
 
-export function* getById (id) {
+export function* getById ({ id }) {
   try {
     const res = yield call(api.profiles.byId, id);
     const data = yield res.data;
-    console.log(`returned data: `, data);
     yield put(fetchSuccess(data))
   } catch (err) {
     yield put(fetchFailure(err))
