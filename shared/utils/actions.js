@@ -13,4 +13,6 @@ import { defineAction } from 'redux-define';
  *  FAILURE: 'app/login/FORM_FAILURE',
  * }
  */
-export const appTypes = defineAction('@webapp');
+
+// eslint-disable-next-line import/prefer-default-export
+export const appTypes = defineAction('@webapp-mkt');

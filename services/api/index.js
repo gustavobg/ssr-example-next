@@ -1,5 +1,5 @@
-import * as profiles from './profiles';
+import * as profile from './profile';
 
 export default {
-  profiles
+  profile,
 };

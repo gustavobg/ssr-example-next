@@ -2,13 +2,13 @@
 import { combineReducers } from 'redux';
 
 // Internal
-import profiles from './profiles/reducer';
+import profile from './profile/reducer';
 
 export const initialState = {};
 
 const rootReducer = combineReducers({
-  // profiles
-  profiles
+  // profile
+  profile,
 });
 
 export default rootReducer;
